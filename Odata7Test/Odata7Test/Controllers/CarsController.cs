@@ -42,7 +42,7 @@ namespace Odata7Test.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState.SelectMany(s => s.Value.Errors.Select(x => x.Exception.Message)));
             }
             var origCar = products.FirstOrDefault(f => f.Id == key);
             if (origCar == null)
@@ -53,7 +53,7 @@ namespace Odata7Test.Controllers
             TryValidateModel(origCar);
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState.SelectMany(s => s.Value.Errors.Select(x => x.Exception.Message)));
             }
             return Updated(origCar);
         }
@@ -61,7 +61,7 @@ namespace Odata7Test.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState.SelectMany(s => s.Value.Errors.Select(x => x.Exception.Message)));
             }
             var origCar = products.FirstOrDefault(f => f.Id == key);
             if (origCar == null)
@@ -76,7 +76,7 @@ namespace Odata7Test.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState.SelectMany(s => s.Value.Errors.Select(x => x.Exception.Message)));
             }
 
             var newId = products.Max(i => i.Id) + 1;
